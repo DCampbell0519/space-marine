@@ -16,11 +16,13 @@ body {
 }
 
 #message {
+    color: white;
+    font-size: 24px;
     display: flex;
     flex-wrap: wrap;
-    height: 400px;
+    height: 300px;
     width: 90%;
-    border: 4px solid black;
+    border: 4px solid white;
     position: relative;
     align-items: stretch;
     justify-content: left;
@@ -35,9 +37,10 @@ body {
 }
 
 .square {
+    color: white;
+    font-size: 20px;
     display: inline-flex;
-    /* flex-wrap: wrap; */
-    border: 3px solid black;
+    border: 3px solid white;
     align-items: center;
     justify-content: space-evenly;
     flex-direction: row;
