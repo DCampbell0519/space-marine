@@ -3,18 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer src="./js/plot.js"></script>
     <script defer src="./js/app.js"></script>
     <link rel="stylesheet" href="./css/style.css">
     <title>Space Marine</title>
 </head>
 <body>
     <h1>Space Marine</h1>
-    <p id="message">After more than a century of peace, the evil Kinammon Empire has begun a campaign of conquest and terror, threatening the fragile peace that has cost billions of lives and centuries of war to attain.  But as luck, or perhaps fate would have it, heroes have emerged across the universe to push back the scourge of Kinamites that have been unleashed upon the worlds.  One such hero is you.  And this is your adventure...</p>
-
-    <section class="choices">
-        <div class="square" id="1">Choice 1</div>
-        <div class="square" id="2">Choice 2</div>
-        <div class="square" id="3">Choice 3</div>
+    <section id="gameContainer" class="startScreen">
+        <p id="message">After more than a century of peace, the evil Kinammon Empire has begun a campaign of conquest and terror, threatening the fragile peace that has cost billions of lives and centuries of war to attain.  But as luck, or perhaps fate would have it, heroes have emerged across the universe to push back the scourge of Kinamites that have been unleashed upon the worlds.  One such hero is you.  And this is your adventure...</p>
+    <div class="container">
+        <button id="startButton">Begin Adventure</button>
+    </div>
+    </section>
+    
+    <section id="adventureContainer" class="adventureScreen">
+        <p id="message">Message</p>
+        <section class="choices">
+            <div class="square" id="1">Choice 1</div>
+            <div class="square" id="2">Choice 2</div>
+            <div class="square" id="3">Choice 3</div>
     </section>
 </body>
 </html>

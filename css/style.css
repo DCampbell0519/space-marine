@@ -29,6 +29,21 @@ body {
     margin: 20px 25px 25px 20px;
 }
 
+.adventureScreen {
+    display: none;
+}
+
+#adventureContainer {
+
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+}
+
 .choices {
     display: flex;
     flex-wrap: wrap;
