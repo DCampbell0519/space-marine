@@ -1,4 +1,4 @@
-const storyLines = [
+const aggressiveStoryLines = [
     { branch: 1, card: 1, text: `"Overwatch, this is Viper.  Going comms dark for final approach.  Over."  You are Marcone, the Viper.  The Kinammon Empire and their whelps have killed everyone you love, and enslaved your world.  Now is the time to go on the offensive.  You have used up all of your political and military capital, burned all of your deep-cover allies for this one shot to take down their flagship, “The Killmonger”, sending a burning message of resistance across the cosmos.  There is no going back.  Choose your approach:`
          },
     { branch: 1, card: 2, text: `In your younger years, you may have gone with a more measured approach, but these vermin deserve to suffer.  You resume course towards their operations hangar and ready all weapons.  “Time to burn”, you whisper into the void.  As you close to within 300 meters, you upload your computer virus to the Killmonger’s mainframe while simultaneously unleashing the full payload of the weapons cache you spent months cobbling together.  Billions of dollars of credits spent in seconds.  But as the shields begin to flicker, and then collapse, you realize it was money well spent.  You gun the engines, land in the middle of the debris, and prepare for war.  
@@ -8,12 +8,31 @@ const storyLines = [
         },
     { branch: 1, card: 4, text: `You arrive outside the ship’s core, having met little resistance on the way.  Enemies and innocents have both fallen to your blade this day, but you can spare little in the way of empathy right now.  You have a mission to complete.  There are two soldiers at the far end of the warehouse sized Vault, who have noticed you and raised weapons.  No time to think!  React!` 
         },
-    { branch: 1, card: 5.1, text: `You activate your thrusters, cover your semi-exposed face with your heavily armored forearms and fly straight at them, holding your blade like a javelin.  You accelerated too fast however, and after feeling one Kinamite simply explode upon impact with your armored body, you fly straight into the wall at Mach-1.  Gross.`
+    { branch: 1, card: 4.1, text: `You activate your thrusters, cover your semi-exposed face with your heavily armored forearms and fly straight at them, holding your blade like a javelin.  You accelerated too fast however, and after feeling one Kinamite simply explode upon impact with your armored body, you fly straight into the wall at Mach-1.  Gross.  GAME OVER.`
         },
-    { branch: 1, card: 5.2, text: `You raise your carbine, the aiming reticle already synced to your helmet’s HUD.  You manage to get one shot off before one of the enemy’s armor-piercing rounds penetrates your armor and goes right through the meat of your left thigh.  The armor clamps the wounds shut, but you are perceptively slowed nonetheless.  As the next enemy round rips your carbine out of your hands, you reflexively draw the ion sword on your back, and throw it like a javelin.  Your aim is true and the sword tip cuts through the Kinamites chest armor like paper and spears him to the wall.`
+    { branch: 1, card: 4.2, text: `You raise your carbine, the aiming reticle already synced to your helmet’s HUD.  You manage to get one shot off before one of the enemy’s armor-piercing rounds penetrates your armor and goes right through the meat of your left thigh.  The armor clamps the wounds shut, but you are perceptively slowed nonetheless.  As the next enemy round rips your carbine out of your hands, you reflexively draw the ion sword on your back, and throw it like a javelin.  Your aim is true and the sword tip cuts through the Kinamites chest armor like paper and spears him to the wall.`
        },
-    { branch: 1, card: 5.3, text: `Before the enemy has a chance to react, you raise your wrist launcher and fire a stun grenade at them, launching yourself after it, not waiting for it to detonate.  The grenade detonates, rendering the Kinamites temporarily deaf and blind, while your helmet saves you from the worst of it.  The Kinamites fire blindly, one round getting lucky and passes through your thigh, eliciting a grunt of pain in response.  But now you’re among them.  And they are no more.`
+    { branch: 1, card: 4.3, text: `Before the enemy has a chance to react, you raise your wrist launcher and fire a stun grenade at them, launching yourself after it, not waiting for it to detonate.  The grenade detonates, rendering the Kinamites temporarily deaf and blind, while your helmet saves you from the worst of it.  The Kinamites fire blindly, one round getting lucky and passes through your thigh, eliciting a grunt of pain in response.  But now you’re among them.  And they are no more.`
         },
+];
+
+
+const choices = [
+    [{ branch: 1, card: 1.1, points: 20, instantDeath: false, text: `Full Metal Panoply` },
+    { branch: 1, card: 1.2, points: 20, instantDeath: false, text: `Silent But Deadly` },
+    { branch: 1, card: 1.3, points: 20, instantDeath: false, text: `Daredevil` }],
+
+    [{ branch: 1, card: 2.1, points: 16, instantDeath: false, text: `Battle stims for the injured and weary` },
+    { branch: 1, card: 2.2, points: 12, instantDeath: false, text: `Dual short blades for when you need to get up close and personal` },
+    { branch: 1, card: 2.3, points: 14, instantDeath: false, text: `Extra explosives` }],
+
+    [{ branch: 1, card: 3.1, points: 6, instantDeath: false, text: `Left Hallway. Direct route. Shortest Distance, but possibly heavy resistance.` },
+    { branch: 1, card: 3.2, points: 11, instantDeath: false, text: `Right Hallway. Non direct route. Longest distance, but less chance of resistance.` },
+    { branch: 1, card: 3.3, points: 13, instantDeath: false, text: `Straight ahead. Shorter distance, less chance of armed resistance, but most of locked doors.` }],
+
+    [{ branch: 1, card: 4.1, points: 0, instantDeath: true, text: `Bowling for Kinamites!` },
+    { branch: 1, card: 4.2, points: 15, instantDeath: false, text: `Long-Range Specialist.` },
+    { branch: 1, card: 4.3, points: 19, instantDeath: false, text: `The Tactician.` }],
 ];
 
 const endings = [
