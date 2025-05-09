@@ -1,4 +1,4 @@
-const aggressiveStoryLines = [
+const aggroStoryLines = [
     { branch: 1, card: 1, text: `"Overwatch, this is Viper.  Going comms dark for final approach.  Over."  You are Marcone, the Viper.  The Kinammon Empire and their whelps have killed everyone you love, and enslaved your world.  Now is the time to go on the offensive.  You have used up all of your political and military capital, burned all of your deep-cover allies for this one shot to take down their flagship, “The Killmonger”, sending a burning message of resistance across the cosmos.  There is no going back.  Choose your approach:`
          },
     { branch: 1, card: 2, text: `In your younger years, you may have gone with a more measured approach, but these vermin deserve to suffer.  You resume course towards their operations hangar and ready all weapons.  “Time to burn”, you whisper into the void.  As you close to within 300 meters, you upload your computer virus to the Killmonger’s mainframe while simultaneously unleashing the full payload of the weapons cache you spent months cobbling together.  Billions of dollars of credits spent in seconds.  But as the shields begin to flicker, and then collapse, you realize it was money well spent.  You gun the engines, land in the middle of the debris, and prepare for war.  
@@ -16,8 +16,7 @@ const aggressiveStoryLines = [
         },
 ];
 
-
-const choices = [
+const aggroChoices = [
     [{ branch: 1, card: 1.1, points: 20, instantDeath: false, text: `Full Metal Panoply` },
     { branch: 1, card: 1.2, points: 20, instantDeath: false, text: `Silent But Deadly` },
     { branch: 1, card: 1.3, points: 20, instantDeath: false, text: `Daredevil` }],
@@ -28,18 +27,52 @@ const choices = [
 
     [{ branch: 1, card: 3.1, points: 6, instantDeath: false, text: `Left Hallway. Direct route. Shortest Distance, but possibly heavy resistance.` },
     { branch: 1, card: 3.2, points: 11, instantDeath: false, text: `Right Hallway. Non direct route. Longest distance, but less chance of resistance.` },
-    { branch: 1, card: 3.3, points: 13, instantDeath: false, text: `Straight ahead. Shorter distance, less chance of armed resistance, but most of locked doors.` }],
+    { branch: 1, card: 3.3, points: 13, instantDeath: false, text: `Straight ahead. Shorter distance, less chance of armed resistance, but several locked doors.` }],
 
     [{ branch: 1, card: 4.1, points: 0, instantDeath: true, text: `Bowling for Kinamites!` },
     { branch: 1, card: 4.2, points: 15, instantDeath: false, text: `Long-Range Specialist.` },
     { branch: 1, card: 4.3, points: 19, instantDeath: false, text: `The Tactician.` }],
 ];
 
-const endings = [
+const aggroEndings = [
     { branch: 1, rating: "excellent", text: `You approach the ship’s core and stare into the heart of the Killmonger, the most feared warship of it’s age.  As you rip off the fusion pack from the low back of your armor, and prime it to go nuclear, you calculate the odds of you making it back to your ship before it detonates.  You exit the now powerless armor, strap your makeshift bomb to the nexis of the ship, and run back to the hangar as fast as your wound will alow.  The fleet is in chaos, this ship no exception.  Alarm Klaxons are wailing now, and you meet little resistance as death and destruction reigns supreme outside.  Your ship, sensing your presence, begins to power up as you near and takes off the second you hit the seat.  You pat the ship in fondness as you peel away at maximum burn, the explosion of the Killmonger resembling a supernova in the reflection of your helmet’s visor.  Mission accomplished.`
         },
     { branch: 1, rating: "poor", text: `The wound in your thigh steadily burns as your armor tries, and fails, to staunch the wound.  The projectile damn near ripped off your leg, the high-tech armor the only thing keeping the limb remotely useful.  You always knew this might be a one-way trip, your thigh wound reinforcing that idea.  You say a silent prayer to your loved ones, as you begin to prime your fusion pack to go nuclear.  As you reach to input the final activation code, you feel a wet thud as an enemy spear pierces your torso from behind.  You fall to your knees as a Kinamite stands before you.  You failed, and the Kinammon Empire will continue un-checked.  Gleaming red eyes are the last things you see`
         },
     { branch: 1, rating: "neutral", text: `You have precious few seconds to complete your mission before you’re overwhelmed.  You wasted most of your armor’s energy reserves making it to the core.  You know you’ll never make it back to your ship in one piece.  And while you were hoping you wouldn’t have to use this, it seems you’re out of options.  You prime the fusion pack on your lower back to go nuclear.  You exhale a breath as you accept your fate and repeat your favorite mantra, “Once more unto the breach dear fr…”, as a flash of white lights up the world and the Killmonger is no more.` 
         },
+];
+
+const stealthStoryLines = [
+    { branch: 2, card: 1, text: `"Overwatch, this is Viper.  Going comms dark for final approach.  Over."  You are Marcone, the Viper.  The Kinammon Empire and their whelps have killed everyone you love, and enslaved your world.  Now is the time to go on the offensive.  You have used up all of your political and military capital, burned all of your deep-cover allies for this one shot to take down their flagship, “The Killmonger”, sending a burning message of resistance across the cosmos.  There is no going back.  Choose your approach:` },
+    { branch: 2, card: 2, text: `There's an old Earth axiom that states, “you only have one chance to make a good first impression”.  And you want your first impression to resonate amongst the stars.  What’s the point of making it inside the Killmonger if you alert the entire ship to your existence?  You upload your computer virus to the Killmonger’s mainframe, activate your ship’s Ghost Cloak, drift up to the shields, and silently enter the hangar when a scout ship returns for repairs and reports.  You are the Viper.  And Vipers kill best in silence.  You land your ship in a relatively empty corner of the hangar, ghost cloak still active.  You activate the chameleon feature of your armor and silently exit the craft.  Where to next?` },
+    { branch: 2, card: 3, text: `Your frustration is mounting.  This ship is a maze and you’ve been silently slinking around for half an hour already.  The chameleon feature of your armor that renders you nearly invisible has a finite supply of power before needing to recharge.  You duck into a spare utility closet to spare your battery while you think about your next move.  There’s a fork in the hallway coming up.  Where should you go?` },
+    { branch: 2, card: 4, text: `Decision made, as you prepare to exit the confines of the closet, the door bursts open and you stare into the bewildered faces of two Kinamite soldiers.  No time to think.  React!` },
+    { branch: 2, card: 4.1, text: `Never bring a knife to a gun fight.  Faster than the enemy can blink, you raise your arms and hurl both of your throwing knives at your enemies.  The first plunges into the Kinamite’s shoulder throwing him off balance, while the other pings harmlessly off of his chest armor.  The momentary shock gives the soldier enough time to level his weapon.  He squeezes the trigger… GAME OVER.` },
+    { branch: 2, card: 4.2, text: `You feint left as you plunge right and disembowel  the soldier standing there, mouth agape.  As the left soldier collects his bearings, you roll behind an ammunition crate, slide out the other side and take out the remaining enemy’s legs.  He goes to the ground and you use your other knife to take his life.  That was loud.` },
+    { branch: 2, card: 4.3, text: `You press a button on your wrist.  Your armor lets out a silent, but focused flash of light, temporarily blinding your enemies, while simultaneously blocking any distress signals from escaping the closet you’re in.  Quickly, and in silence, you slip forward and incapacitate your enemies.  Well done.` },
+];
+
+const stealthChoices = [
+    [{ branch: 2, card: 1.1, points: 20, instantDeath: false, text: `Full Metal Panoply` },
+    { branch: 2, card: 1.2, points: 20, instantDeath: false, text: `Silent But Deadly` },
+    { branch: 2, card: 1.3, points: 20, instantDeath: false, text: `Daredevil` }],
+    
+    [{ branch: 2, card: 2.1, points: 7, instantDeath: false, text: `In a hurry. You have a decent idea where your target is.` },
+    { branch: 2, card: 2.2, points: 16, instantDeath: false, text: `Take your time.  Slip up to the command booth and hack into the ship schematics to locate your target.` },
+    { branch: 2, card: 2.3, points: 9, instantDeath: false, text: `Follow the leader. Pick an important looking soldier and follow him.` }],
+
+    [{ branch: 2, card: 3.1, points: 6, instantDeath: false, text: `Left Hallway. Direct route. Shortest Distance, but possibly heavy resistance.` },
+    { branch: 2, card: 3.2, points: 11, instantDeath: false, text: `Right Hallway. Non direct route. Longest distance, but less chance of resistance.` },
+    { branch: 2, card: 3.3, points: 13, instantDeath: false, text: `Straight ahead. Shorter distance, less chance of armed resistance, but several locked doors.` }],
+
+    [{ branch: 2, card: 4.1, points: 0, instantDeath: true, text: `Throwing knives!` },
+    { branch: 2, card: 4.2, points: 10, instantDeath: false, text: `Dual blades!` },
+    { branch: 2, card: 4.3, points: 17, instantDeath: false, text: `Signal Jammer!` }],
+];
+
+const stealthEndings = [ 
+    { branch: 2, rating: "excellent", text: `You finally make it to the Overlord’s quarters.  You enter through the ventilation shaft as he hovers over a data pad, deep lines of concentration etching his face.  You activate your signal jammer again for slipping into the room.  With senses honed in years of martial bouts, the Overlord overhears a near silent whoosh of clothing, and turns slowly, unimpressed with the snake who has entered his habitat.  He sizes me up and stands, no doubt to proclaim the grand misdeeds of his military career, or some other nonsense, born of hubris.  While he’s busy being distracted, you put a bullet between his eyes.  Using his biometric data, and the command hub on his personal terminal, you command the Killmonger to self-destruct.  As you escape on the Overlord’s personal escape shuttle, you reflect on a mission well done.  Your escape pod rattles at the awesome power of the Killmonger’s explosion, but no matter.  The deed is done.` },
+    { branch: 2, rating: "poor", text: `You eventually make it to the Overlord’s quarters, but it wasn’t easy.  It seems the enemy has begun to notice your presence in a big way.  Stealth forgotten, you plant a small EMP device onto the electric lock and fry it.  The doors to hell slam open with a bang and you slip inside.  You see the Overlord standing by the view window, admiring the dark abyss, and sipping some amber colored liquid from a short glass, arrogant as all hell.  Does he not know who you are?  He should be afraid.  As you take a menacing step forward, you catch a glimpse of an enemy in the reflection of the terminal in front of you.  Nice try.  You spin and shoot the hidden enemy, marveling at your luck.  But fail to notice the additional soldier, slip out from a hidden hallway, smile with hatred, and gun you down.  Better luck next time.` },
+    { branch: 2, rating: "neutral", text: `You make it to the Overlord’s personal quarters and forgetting about stealth, hack the doorway and prowl inside.  You find the Overlord standing in the center of the room, long spear in hand, waiting for you.  You draw your short swords and stalk in front of him.  No words need be said to such a creature.  Taking a steadying breath, you rush forward, hoping to end the fight before it begins.  But alas, he expertly twirls his spear, using it’s length and his skills from getting too close, where your swords might actually be useful.  The score is 6 – 0, with you bleeding all over yourself, and your enemy looking… sweaty?  If this fight continues, you’re going to lost.  And badly.  In a final and desperate move, you fling one of your swords at the Overlord’s face.  He manages to bat the weapon aside, but you use the momentary respite to slip inside his guard and bury your short sword into his chest and twisting.  You breathe a sigh of relief, realizing that while you accomplished your mission, you’re not long for this world.  You’re losing too much blood.  You use the Overlord’s biometrics and personal terminal to have the ship self-destruct.  You spend the next 30 seconds reflecting on a hard life, but well-lived.  “See you in he…”` }, 
 ];

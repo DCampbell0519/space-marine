@@ -23,29 +23,29 @@ window.onload = initialize;
 // console.log("init 1")
 
 function handleClick(element) {
-    // console.log("choice test")
     currentCard++;
     console.log(`Current Card:`, currentCard)
     console.log(element.target)
-    messageElement.textContent = aggressiveStoryLines[currentCard].text;
+    messageElement.textContent = aggroStoryLines[currentCard].text;
+
     if (element.target.dataset.playerDeath === "true") {
         playerDeath = true;
     }
     if (currentCard > 3 && playerDeath === true) {
         choiceElements.forEach(div => div.remove());
-        messageElement.textContent = aggressiveStoryLines[4].text;
+        messageElement.textContent = aggroStoryLines[4].text;
         return; 
     } else if (currentCard > 3 && element.target.id === "2") {
         choiceElements.forEach(div => div.remove());
-        messageElement.textContent = aggressiveStoryLines[5].text;
+        messageElement.textContent = aggroStoryLines[5].text;
         console.log("second ending")
     } else if (currentCard > 3 && element.target.id === "3") {
         choiceElements.forEach(div => div.remove());
-        messageElement.textContent = aggressiveStoryLines[6].text;
+        messageElement.textContent = aggroStoryLines[6].text;
         console.log("third ending")
     }
     
-    choices[currentCard].forEach((choice, index) => {
+    aggroChoices[currentCard].forEach((choice, index) => {
 
         choiceElements[index].textContent = choice.text
         console.log(choice.instantDeath, index)
@@ -53,9 +53,7 @@ function handleClick(element) {
             choiceElements[index].dataset.playerDeath = true;
             // console.log(playerDeath)
         }
-    // if (aggressiveStoryLines.branch === 1 && aggressiveStoryLines.)
     })
-    // gameOver()
 }
 
 // function gameOver() {
@@ -79,15 +77,17 @@ function handleClick(element) {
 // }
 
 /*----------- Event Listeners ----------*/
+
 choiceElements.forEach(choice => {
     choice.addEventListener('click', handleClick)
+    
 })
 
 document.getElementById('startButton').addEventListener('click', () => {
     document.getElementById('gameContainer').style.display = 'none';
     document.getElementById('adventureContainer').style.display = 'flex';
-    messageElement.textContent = aggressiveStoryLines[currentCard].text;
-    choices[currentCard].forEach((choice, index) => {
+    messageElement.textContent = aggroStoryLines[currentCard].text;
+    aggroChoices[currentCard].forEach((choice, index) => {
         choiceElements[index].textContent = choice.text
     })
     
