@@ -25,23 +25,27 @@ window.onload = initialize;
 function handleClick(element) {
     // console.log("choice test")
     currentCard++;
-    // console.log(`Current Card:`, currentCard)
-    // console.log(element.target)
+    console.log(`Current Card:`, currentCard)
+    console.log(element.target)
     messageElement.textContent = aggressiveStoryLines[currentCard].text;
-    if (element.target.dataset.playerDeath === true) {
+    if (element.target.dataset.playerDeath === "true") {
         playerDeath = true;
     }
-    if (currentCard > 3) {
+    if (currentCard > 3 && playerDeath === true) {
         choiceElements.forEach(div => div.remove());
+        messageElement.textContent = aggressiveStoryLines[4].text;
         return; 
+    } else if (currentCard > 3 && element.target.id === "2") {
+        choiceElements.forEach(div => div.remove());
+        messageElement.textContent = aggressiveStoryLines[5].text;
+        console.log("second ending")
+    } else if (currentCard > 3 && element.target.id === "3") {
+        choiceElements.forEach(div => div.remove());
+        messageElement.textContent = aggressiveStoryLines[6].text;
+        console.log("third ending")
     }
     
     choices[currentCard].forEach((choice, index) => {
-
-        // console.log("=======================")        
-        // // console.log(choices[3])
-        // console.log(choices[index])
-        // console.log("=======================")
 
         choiceElements[index].textContent = choice.text
         console.log(choice.instantDeath, index)
@@ -95,5 +99,3 @@ document.getElementById('startButton').addEventListener('click', () => {
 //         }      
 //     })
     
-// })
-
