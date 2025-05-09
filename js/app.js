@@ -18,10 +18,8 @@ function initialize() {
     playerScore = 0;
 
     // render();
-    // console.log("init 2")
 }
 window.onload = initialize;
-// console.log("init 1")
 
 function firstChoice(element) {
 
@@ -38,9 +36,43 @@ function firstChoice(element) {
     } else if (currentBranch === 2) {
         stealthClick(element)
     } else if (currentBranch === 3) {
-        // TBD;
+        dareDevilClick(element)
     }
     isFirstClick = false;
+    // tallyPoints();
+}
+
+function dareDevilClick(element) {
+    currentCard++;
+    console.log(`Current Card:`, currentCard)
+    console.log(element.target)
+    messageElement.textContent = dareDevilStoryLines[currentCard].text;
+    
+    if (element.target.dataset.playerDeath === "true") {
+        playerDeath = true;
+    }
+    if (currentCard > 3 && playerDeath === true) {
+        choiceElements.forEach(div => div.remove());
+        messageElement.textContent = dareDevilStoryLines[4].text;
+        return; 
+    } else if (currentCard > 3 && element.target.id === "2") {
+        choiceElements.forEach(div => div.remove());
+        messageElement.textContent = dareDevilStoryLines[5].text;
+        console.log("second ending")
+    } else if (currentCard > 3 && element.target.id === "3") {
+        choiceElements.forEach(div => div.remove());
+        messageElement.textContent = dareDevilStoryLines[6].text;
+        console.log("third ending")
+    }
+    dareDevilChoices[currentCard].forEach((choice, index) => {
+
+        choiceElements[index].textContent = choice.text
+        console.log(choice.instantDeath, index)
+        if (choice.instantDeath === true) {
+            choiceElements[index].dataset.playerDeath = true;
+            // console.log(playerDeath)
+        }
+    })
 }
 
 function stealthClick(element) {
@@ -111,6 +143,13 @@ function aggroClick(element) {
     })
 }
 
+function tallyPoints() {
+
+    const luckyPoints = Math.floor(Math.random() * (25 - 0 + 1))
+    console.log(luckyPoints)
+}
+
+tallyPoints()
 // function gameOver() {
 //     if (playerDeath === true) {
 //         messageElement.textContent = aggressiveStoryLines[4].text;
@@ -135,7 +174,6 @@ function aggroClick(element) {
 
 choiceElements.forEach(choice => {
     choice.addEventListener('click', firstChoice)
-    return; 
 })
 
 document.getElementById('startButton').addEventListener('click', () => {
