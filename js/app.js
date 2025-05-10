@@ -33,78 +33,102 @@ function firstChoice(element) {
     } 
 
     if (currentBranch === 1) {
-        aggroClick(element)
+        handleClick(element, aggroChoices, aggroStoryLines)
     } else if (currentBranch === 2) {
-        stealthClick(element)
+        handleClick(element, stealthChoices, stealthStoryLines)
     } else if (currentBranch === 3) {
-        dareDevilClick(element)
+        handleClick(element, dareDevilChoices, dareDevilStoryLines)
     }
     isFirstClick = false;
     // tallyPoints();
 }
 
-function dareDevilClick(element) {
-    const playerPoints = aggroChoices[currentCard][parseInt(element.target.id) - 1].points;
-    currentCard++;
-    console.log(`Current Card:`, currentCard)
-    console.log(element.target)
-    messageElement.textContent = dareDevilStoryLines[currentCard].text;
-    checkForEnding(element, dareDevilStoryLines)
+// function dareDevilClick(element) {
+//     const playerPoints = dareDevilChoices[currentCard][parseInt(element.target.id) - 1].points;
+//     currentCard++;
+//     console.log(`Current Card:`, currentCard)
+//     console.log(element.target)
+//     messageElement.textContent = dareDevilStoryLines[currentCard].text;
+//     checkForEnding(element, dareDevilStoryLines)
    
-    console.log(`PLAYERPOINTS:`, playerPoints)
-    tallyPoints(playerPoints);
+//     console.log(`PLAYERPOINTS:`, playerPoints)
+//     tallyPoints(playerPoints);
     
-    if (!dareDevilChoices[currentCard]) {
-        processEndings();
-    } else {
-        dareDevilChoices[currentCard].forEach((choice, index) => {    
-            choiceElements[index].textContent = choice.text
-            if (choice.instantDeath === true) {
-                choiceElements[index].dataset.playerDeath = true;
-            }
-        })
-    }
-}
+//     if (!dareDevilChoices[currentCard]) {
+//         processEndings();
+//     } else {
+//         dareDevilChoices[currentCard].forEach((choice, index) => {    
+//             choiceElements[index].textContent = choice.text
+//             if (choice.instantDeath === true) {
+//                 choiceElements[index].dataset.playerDeath = true;
+//             }
+//         })
+//     }
+// }
 
-function stealthClick(element) {
-    const playerPoints = aggroChoices[currentCard][parseInt(element.target.id) - 1].points;
-    currentCard++;
-    console.log(`Current Card:`, currentCard)
-    console.log(element.target)
-    messageElement.textContent = stealthStoryLines[currentCard].text;
-    checkForEnding(element, stealthStoryLines)
+// function stealthClick(element) {
+//     const playerPoints = stealthChoices[currentCard][parseInt(element.target.id) - 1].points;
+//     currentCard++;
+//     console.log(`Current Card:`, currentCard)
+//     console.log(element.target)
+//     messageElement.textContent = stealthStoryLines[currentCard].text;
+//     checkForEnding(element, stealthStoryLines)
     
-    console.log(`PLAYERPOINTS:`, playerPoints)
-    tallyPoints(playerPoints);
+//     console.log(`PLAYERPOINTS:`, playerPoints)
+//     tallyPoints(playerPoints);
 
-    if (!stealthChoices[currentCard]) {
-        processEndings();
-    } else {
-        stealthChoices[currentCard].forEach((choice, index) => {
-            choiceElements[index].textContent = choice.text
-            if (choice.instantDeath === true) {
-                choiceElements[index].dataset.playerDeath = true;
-            }
-        })
-    }
-}
+//     if (!stealthChoices[currentCard]) {
+//         processEndings();
+//     } else {
+//         stealthChoices[currentCard].forEach((choice, index) => {
+//             choiceElements[index].textContent = choice.text
+//             if (choice.instantDeath === true) {
+//                 choiceElements[index].dataset.playerDeath = true;
+//             }
+//         })
+//     }
+// }
 
-function aggroClick(element) {
+// function aggroClick(element) {
+//     console.log(`TARGET:`, element.target.id)
+//     const playerPoints = aggroChoices[currentCard][parseInt(element.target.id) - 1].points;
+//     currentCard++;
+//     console.log(`Current Card:`, currentCard)
+//     console.log(element.target)
+//     messageElement.textContent = aggroStoryLines[currentCard].text;
+//     checkForEnding(element, aggroStoryLines)
+    
+//     console.log(`PLAYERPOINTS:`, playerPoints)
+//     tallyPoints(playerPoints);
+
+//     if (!aggroChoices[currentCard]) {
+//         processEndings();
+//     } else {
+//         aggroChoices[currentCard].forEach((choice, index) => {
+//             choiceElements[index].textContent = choice.text
+//             if (choice.instantDeath === true) {
+//                 choiceElements[index].dataset.playerDeath = true;
+//             }
+//         })
+//     }
+// }
+
+function handleClick(element, choices, storyLines) {
     console.log(`TARGET:`, element.target.id)
-    const playerPoints = aggroChoices[currentCard][parseInt(element.target.id) - 1].points;
+    const playerPoints = choices[currentCard][parseInt(element.target.id) - 1].points;
     currentCard++;
     console.log(`Current Card:`, currentCard)
     console.log(element.target)
-    messageElement.textContent = aggroStoryLines[currentCard].text;
-    checkForEnding(element, aggroStoryLines)
+    messageElement.textContent = storyLines[currentCard].text;
+    checkForEnding(element, storyLines)
     
     console.log(`PLAYERPOINTS:`, playerPoints)
     tallyPoints(playerPoints);
 
-    if (!aggroChoices[currentCard]) {
+    if (!choices[currentCard]) {
         processEndings();
     } else {
-        aggroChoices[currentCard].forEach((choice, index) => {
+        choices[currentCard].forEach((choice, index) => {
             choiceElements[index].textContent = choice.text
             if (choice.instantDeath === true) {
                 choiceElements[index].dataset.playerDeath = true;
