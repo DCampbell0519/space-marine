@@ -56,7 +56,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 50px;
+    height: 100px;
 }
 
 .choices {
@@ -81,5 +81,9 @@ body {
 }
 
 .finishAdventure {
+    padding: 16px;
+}
+
+.resetMission {
     padding: 16px;
 }
