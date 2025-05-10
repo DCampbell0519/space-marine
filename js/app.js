@@ -10,6 +10,7 @@ let isFirstClick = true;
 
 /*----- Cached Element References  -----*/
 const choiceElements = document.querySelectorAll('.square')
+// console.log(choiceElements)
 
 const messageElement = document.querySelector('#message')
 
@@ -43,6 +44,7 @@ function firstChoice(element) {
 }
 
 function dareDevilClick(element) {
+    const playerPoints = aggroChoices[currentCard][parseInt(element.target.id) - 1].points;
     currentCard++;
     console.log(`Current Card:`, currentCard)
     console.log(element.target)
@@ -64,6 +66,10 @@ function dareDevilClick(element) {
         messageElement.textContent = dareDevilStoryLines[6].text;
         console.log("third ending")
     }
+    console.log(`PLAYERPOINTS:`, playerPoints)
+    tallyPoints(playerPoints);
+    
+    if (aggroChoices[currentCard]) {
     dareDevilChoices[currentCard].forEach((choice, index) => {
 
         choiceElements[index].textContent = choice.text
@@ -71,11 +77,14 @@ function dareDevilClick(element) {
         if (choice.instantDeath === true) {
             choiceElements[index].dataset.playerDeath = true;
             // console.log(playerDeath)
-        }
-    })
+            
+         }
+        })
+    }
 }
 
 function stealthClick(element) {
+    const playerPoints = aggroChoices[currentCard][parseInt(element.target.id) - 1].points;
     currentCard++;
     console.log(`Current Card:`, currentCard)
     console.log(element.target)
@@ -97,7 +106,10 @@ function stealthClick(element) {
         messageElement.textContent = stealthStoryLines[6].text;
         console.log("third ending")
     }
+    console.log(`PLAYERPOINTS:`, playerPoints)
+    tallyPoints(playerPoints);
 
+    if (aggroChoices[currentCard]) {
     stealthChoices[currentCard].forEach((choice, index) => {
 
         choiceElements[index].textContent = choice.text
@@ -106,10 +118,13 @@ function stealthClick(element) {
             choiceElements[index].dataset.playerDeath = true;
             // console.log(playerDeath)
         }
-    })
+        })
+    }
 }
 
 function aggroClick(element) {
+    console.log(`TARGET:`, element.target.id)
+    const playerPoints = aggroChoices[currentCard][parseInt(element.target.id) - 1].points;
     currentCard++;
     console.log(`Current Card:`, currentCard)
     console.log(element.target)
@@ -131,25 +146,31 @@ function aggroClick(element) {
         messageElement.textContent = aggroStoryLines[6].text;
         console.log("third ending")
     }
-    
+    console.log(`PLAYERPOINTS:`, playerPoints)
+    tallyPoints(playerPoints);
+
+    if (aggroChoices[currentCard]) {
     aggroChoices[currentCard].forEach((choice, index) => {
-
         choiceElements[index].textContent = choice.text
-        console.log(choice.instantDeath, index)
-        if (choice.instantDeath === true) {
-            choiceElements[index].dataset.playerDeath = true;
-            // console.log(playerDeath)
-        }
-    })
+        // console.log(choice)
+        // console.log(index)
+        console.log(choice.instantDeath, `index:`, index)
+            if (choice.instantDeath === true) {
+                choiceElements[index].dataset.playerDeath = true;
+                // console.log(playerDeath)
+                // FOR ADAM: ERROR MESSAGE.  I THINK IT'S BECAUSE WHILE THERE IS AN INDEX 3 (4TH SET OF CHOICES), THERE ISN'T A FOURTH SQUARE ELEMENT TO PUT ANYTHING.  MAYBE?
+            }
+        })
+    }
 }
 
-function tallyPoints() {
-
+function tallyPoints(playerPoints) {
     const luckyPoints = Math.floor(Math.random() * (25 - 0 + 1))
-    console.log(luckyPoints)
+    playerScore = luckyPoints + playerPoints + playerScore;
+    console.log(`luckyPoints:`, luckyPoints)
+    console.log(`playerScore:`, playerScore)
 }
 
-tallyPoints()
 // function gameOver() {
 //     if (playerDeath === true) {
 //         messageElement.textContent = aggressiveStoryLines[4].text;

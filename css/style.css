@@ -16,7 +16,7 @@ body {
 }
 
 .message {
-    color: white;
+    color: whitesmoke;
     font-size: 24px;
     display: flex;
     flex-wrap: wrap;
@@ -30,7 +30,7 @@ body {
 }
 
 #message {
-    color: white;
+    color: whitesmoke;
     font-size: 24px;
     display: flex;
     flex-wrap: wrap;
@@ -68,7 +68,7 @@ body {
 }
 
 .square {
-    color: white;
+    color: whitesmoke;
     font-size: 20px;
     display: inline-flex;
     border: 3px solid white;
