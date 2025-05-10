@@ -49,36 +49,19 @@ function dareDevilClick(element) {
     console.log(`Current Card:`, currentCard)
     console.log(element.target)
     messageElement.textContent = dareDevilStoryLines[currentCard].text;
-    
-    if (element.target.dataset.playerDeath === "true") {
-        playerDeath = true;
-    }
-    if (currentCard > 3 && playerDeath === true) {
-        choiceElements.forEach(div => div.remove());
-        messageElement.textContent = dareDevilStoryLines[4].text;
-        return; 
-    } else if (currentCard > 3 && element.target.id === "2") {
-        choiceElements.forEach(div => div.remove());
-        messageElement.textContent = dareDevilStoryLines[5].text;
-        console.log("second ending")
-    } else if (currentCard > 3 && element.target.id === "3") {
-        choiceElements.forEach(div => div.remove());
-        messageElement.textContent = dareDevilStoryLines[6].text;
-        console.log("third ending")
-    }
+    checkForEnding(element, dareDevilStoryLines)
+   
     console.log(`PLAYERPOINTS:`, playerPoints)
     tallyPoints(playerPoints);
     
-    if (aggroChoices[currentCard]) {
-    dareDevilChoices[currentCard].forEach((choice, index) => {
-
-        choiceElements[index].textContent = choice.text
-        console.log(choice.instantDeath, index)
-        if (choice.instantDeath === true) {
-            choiceElements[index].dataset.playerDeath = true;
-            // console.log(playerDeath)
-            
-         }
+    if (!dareDevilChoices[currentCard]) {
+        processEndings();
+    } else {
+        dareDevilChoices[currentCard].forEach((choice, index) => {    
+            choiceElements[index].textContent = choice.text
+            if (choice.instantDeath === true) {
+                choiceElements[index].dataset.playerDeath = true;
+            }
         })
     }
 }
@@ -89,35 +72,19 @@ function stealthClick(element) {
     console.log(`Current Card:`, currentCard)
     console.log(element.target)
     messageElement.textContent = stealthStoryLines[currentCard].text;
-
-    if (element.target.dataset.playerDeath === "true") {
-        playerDeath = true;
-    }
-    if (currentCard > 3 && playerDeath === true) {
-        choiceElements.forEach(div => div.remove());
-        messageElement.textContent = stealthStoryLines[4].text;
-        return; 
-    } else if (currentCard > 3 && element.target.id === "2") {
-        choiceElements.forEach(div => div.remove());
-        messageElement.textContent = stealthStoryLines[5].text;
-        console.log("second ending")
-    } else if (currentCard > 3 && element.target.id === "3") {
-        choiceElements.forEach(div => div.remove());
-        messageElement.textContent = stealthStoryLines[6].text;
-        console.log("third ending")
-    }
+    checkForEnding(element, stealthStoryLines)
+    
     console.log(`PLAYERPOINTS:`, playerPoints)
     tallyPoints(playerPoints);
 
-    if (aggroChoices[currentCard]) {
-    stealthChoices[currentCard].forEach((choice, index) => {
-
-        choiceElements[index].textContent = choice.text
-        console.log(choice.instantDeath, index)
-        if (choice.instantDeath === true) {
-            choiceElements[index].dataset.playerDeath = true;
-            // console.log(playerDeath)
-        }
+    if (!stealthChoices[currentCard]) {
+        processEndings();
+    } else {
+        stealthChoices[currentCard].forEach((choice, index) => {
+            choiceElements[index].textContent = choice.text
+            if (choice.instantDeath === true) {
+                choiceElements[index].dataset.playerDeath = true;
+            }
         })
     }
 }
@@ -129,36 +96,18 @@ function aggroClick(element) {
     console.log(`Current Card:`, currentCard)
     console.log(element.target)
     messageElement.textContent = aggroStoryLines[currentCard].text;
-
-    if (element.target.dataset.playerDeath === "true") {
-        playerDeath = true;
-    }
-    if (currentCard > 3 && playerDeath === true) {
-        choiceElements.forEach(div => div.remove());
-        messageElement.textContent = aggroStoryLines[4].text;
-        return; 
-    } else if (currentCard > 3 && element.target.id === "2") {
-        choiceElements.forEach(div => div.remove());
-        messageElement.textContent = aggroStoryLines[5].text;
-        console.log("second ending")
-    } else if (currentCard > 3 && element.target.id === "3") {
-        choiceElements.forEach(div => div.remove());
-        messageElement.textContent = aggroStoryLines[6].text;
-        console.log("third ending")
-    }
+    checkForEnding(element, aggroStoryLines)
+    
     console.log(`PLAYERPOINTS:`, playerPoints)
     tallyPoints(playerPoints);
 
-    if (aggroChoices[currentCard]) {
-    aggroChoices[currentCard].forEach((choice, index) => {
-        choiceElements[index].textContent = choice.text
-        // console.log(choice)
-        // console.log(index)
-        console.log(choice.instantDeath, `index:`, index)
+    if (!aggroChoices[currentCard]) {
+        processEndings();
+    } else {
+        aggroChoices[currentCard].forEach((choice, index) => {
+            choiceElements[index].textContent = choice.text
             if (choice.instantDeath === true) {
                 choiceElements[index].dataset.playerDeath = true;
-                // console.log(playerDeath)
-                // FOR ADAM: ERROR MESSAGE.  I THINK IT'S BECAUSE WHILE THERE IS AN INDEX 3 (4TH SET OF CHOICES), THERE ISN'T A FOURTH SQUARE ELEMENT TO PUT ANYTHING.  MAYBE?
             }
         })
     }
@@ -178,13 +127,52 @@ function tallyPoints(playerPoints) {
 //     }
 // }
 
-// function checkForEndings() {
-//     document.querySelectorAll('.square')
-//     if (event.target.card === 4.2) {
-//         messageElement.textContent = test;
-//     }
-// }
+function processEndings() {
+    const endButton = document.createElement('button')
+    endButton.className = 'finishAdventure';
+    endButton.textContent = "Finish Your Mission";
+    const endingContainer = document.querySelector('#adventureContainer')
+    endingContainer.appendChild(endButton)
+    endButton.addEventListener('click', () => {
+        if (currentBranch === 1) {
+            processFinalScore(aggroEndings)
+        } else if (currentBranch === 2) {
+            processFinalScore(stealthEndings)
+        } else {
+            processFinalScore(dareDevilEndings)
+        }
+    })
+}
 
+function processFinalScore(ending) {
+    if (playerScore > 120) {
+        messageElement.textContent = ending[0].text;
+    } else if (playerScore < 75) {
+        messageElement.textContent = ending[1].text;
+    } else if (playerScore >= 75) {
+        messageElement.textContent = ending[2].text;
+    }
+}
+
+function checkForEnding(element, storyLines) {
+    if (element.target.dataset.playerDeath === "true") {
+        playerDeath = true;
+    }
+    if (currentCard > 3 && playerDeath === true) {
+        choiceElements.forEach(div => div.remove());
+        messageElement.textContent = storyLines[4].text;
+        return; 
+    } else if (currentCard > 3 && element.target.id === "2") {
+        choiceElements.forEach(div => div.remove());
+        messageElement.textContent = storyLines[5].text;
+        console.log("second ending")
+    } else if (currentCard > 3 && element.target.id === "3") {
+        choiceElements.forEach(div => div.remove());
+        messageElement.textContent = storyLines[6].text;
+        console.log("third ending")
+    }
+}
+// const playerPoints = aggroChoices[currentCard][parseInt(element.target.id) - 1].points;
 // function updateMessage() {
 //     storyLines.forEach(story => {
 //         if (branch === 1 && )
@@ -204,8 +192,9 @@ document.getElementById('startButton').addEventListener('click', () => {
     aggroChoices[currentCard].forEach((choice, index) => {
         choiceElements[index].textContent = choice.text
     })
-    
 })
+
+
 //     const messageElement
 //     aggressiveStoryLines.forEach(story => {
 //         if (branch === 1 && card === 1) {
