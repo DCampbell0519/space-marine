@@ -10,24 +10,25 @@ let isFirstClick;
 
 /*----- Cached Element References  -----*/
 const choiceElements = document.querySelectorAll('.square')
-// console.log(choiceElements)
 
 const messageElement = document.querySelector('#message')
 
 /*-------------- Functions -------------*/
 function initialize() {
+    
     playerScore = 0;
     currentCard = 0;
     playerDeath = false;
     isFirstClick = true;
-    // document.getElementById('gameContainer').style.display = 'flex';
     // document.getElementById('adventureContainer').style.display = 'none';
-    // render();
+    // document.getElementById('gameContainer').style.display = 'flex';
+    
+    render();
 }
 window.onload = initialize;
 
 function firstChoice(element) {
-
+    console.log(element)
     if (element.target.id === "1" && isFirstClick === true) {
        currentBranch = 1;
     } else if (element.target.id === "2" && isFirstClick === true) {
@@ -114,17 +115,6 @@ function processEndings() {
     
 }
 
-function resetYourMission() {
-    const resetButton = document.createElement('button')
-    const resetContainer = document.querySelector('#adventureContainer')
-    resetButton.className = 'resetMission';
-    resetButton.textContent = "Reset Mission"
-    resetContainer.appendChild(resetButton)
-    resetButton.addEventListener('click', () => {
-        initialize();
-    })
-}
-
 function tallyPoints(playerPoints) {
     const luckyPoints = Math.floor(Math.random() * (25 - 0 + 1))
     playerScore = luckyPoints + playerPoints + playerScore;
@@ -142,20 +132,35 @@ function processFinalScore(ending) {
     }
 }
 
-// function render() {
-//     const startButton = document.getElementById('startButton');
-//     const gameContainer = document.getElementById('gameContainer');
-//     const adventureContainer = document.getElementById('adventureContainer');
+function resetYourMission() {
+    const resetButton = document.createElement('button')
+    const resetContainer = document.querySelector('#adventureContainer')
+    resetButton.className = 'resetMission';
+    resetButton.textContent = "Reset Mission"
+    resetContainer.appendChild(resetButton)
+    resetButton.addEventListener('click', () => {
+        console.log("reset")
+        initialize();
+        currentBranch = undefined;
+        console.log({playerScore, currentCard, playerDeath, isFirstClick})
+        reRe();
+    })
+}
 
-//     startButton.addEventListener('click', () => {
-//         gameContainer.style.display = 'none';
-//         adventureContainer.style.display = 'flex';
-//         messageElement.textContent = aggroStoryLines[currentCard].text;
-//         aggroChoices[currentCard].forEach((choice, index) => {
-//             choiceElements[index].textContent = choice.text;
-//         })
-//     })
-// }
+function render() {
+    const startButton = document.getElementById('startButton');
+    const gameContainer = document.getElementById('gameContainer');
+    const adventureContainer = document.getElementById('adventureContainer');
+    
+    // startButton.addEventListener('click', () => {
+    //     gameContainer.style.display = 'none';
+    //     adventureContainer.style.display = 'flex';
+    //     messageElement.textContent = aggroStoryLines[currentCard].text;
+    //     aggroChoices[currentCard].forEach((choice, index) => {
+    //         choiceElements[index].textContent = choice.text;
+    //     })
+    // })
+}
 
 /*----------- Event Listeners ----------*/
 
@@ -164,15 +169,30 @@ choiceElements.forEach(choice => {
 })
 
 document.getElementById('startButton').addEventListener('click', () => {
+    deploy();
+})
+
+
+function deploy() {
     document.getElementById('gameContainer').style.display = 'none';
     document.getElementById('adventureContainer').style.display = 'flex';
+    console.log({aggroChoices, choice: aggroChoices[currentCard]})
     messageElement.textContent = aggroStoryLines[currentCard].text;
     aggroChoices[currentCard].forEach((choice, index) => {
         choiceElements[index].textContent = choice.text
         })
-    })
-
-
+    
+}
+function reRe() {
+    document.getElementById('gameContainer').style.display = 'block';
+    document.getElementById('adventureContainer').style.display = 'none';
+    console.log({aggroChoices, choice: aggroChoices[currentCard]})
+    messageElement.textContent = aggroStoryLines[currentCard].text;
+    aggroChoices[currentCard].forEach((choice, index) => {
+        choiceElements[index].textContent = choice.text
+        })
+    
+}
 //     const messageElement
 //     aggressiveStoryLines.forEach(story => {
 //         if (branch === 1 && card === 1) {
