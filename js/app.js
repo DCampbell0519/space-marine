@@ -9,8 +9,8 @@ let playerDeath;
 let isFirstClick;
 
 /*----- Cached Element References  -----*/
-const choiceElements = document.querySelectorAll('.square')
-
+let choiceElements = document.querySelectorAll('.square')
+const freshChoices = choiceElements;
 const messageElement = document.querySelector('#message')
 
 /*-------------- Functions -------------*/
@@ -142,7 +142,13 @@ function resetYourMission() {
         console.log("reset")
         initialize();
         currentBranch = undefined;
-        console.log({playerScore, currentCard, playerDeath, isFirstClick})
+        choiceElements = freshChoices;
+        
+        choiceElements.forEach((el) => {
+            document.querySelector(".choices").appendChild(el)
+        })
+        resetContainer.removeChild(resetButton)
+        console.log({choiceElements, playerScore, currentCard, playerDeath, isFirstClick})
         reRe();
     })
 }
@@ -179,6 +185,7 @@ function deploy() {
     console.log({aggroChoices, choice: aggroChoices[currentCard]})
     messageElement.textContent = aggroStoryLines[currentCard].text;
     aggroChoices[currentCard].forEach((choice, index) => {
+        console.log({choice, index})
         choiceElements[index].textContent = choice.text
         })
     
