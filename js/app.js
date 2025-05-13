@@ -68,7 +68,6 @@ function handleClick(element, choices, storyLines) {
     })
 };
 
-
 function checkForClimax(element, storyLines) {
     if (element.target.dataset.playerDeath === "true") {
         playerDeath = true;
@@ -141,9 +140,9 @@ function resetYourMission() {
         initialize();
         currentBranch = undefined;
         choiceElements = freshChoices;
-        choiceElements.forEach((el) => {
-            el.removeAttribute('data-player-death');
-            document.querySelector(".choices").appendChild(el);
+        choiceElements.forEach((element) => {
+            element.removeAttribute('data-player-death');
+            document.querySelector(".choices").appendChild(element);
         })
         resetContainer.removeChild(resetButton)
         reRender();
@@ -166,7 +165,6 @@ function reRender() {
     aggroChoices[currentCard].forEach((choice, index) => {
         choiceElements[index].textContent = choice.text
         })
-    
 }
 
 /*----------- Event Listeners ----------*/
