@@ -1,5 +1,3 @@
-/*-------------- Constants -------------*/
-
 
 /*---------- Variables (state) ---------*/
 let playerScore;
@@ -22,17 +20,14 @@ const adventureContainer = document.getElementById('adventureContainer')
 
 /*-------------- Functions -------------*/
 function initialize() {
-    
     playerScore = 0;
     currentCard = 0;
     playerDeath = false;
     isFirstClick = true;
-    // render();
 }
 window.onload = initialize;
 
 function firstChoice(element) {
-    // console.log(element)
     if (element.target.id === "1" && isFirstClick === true) {
        currentBranch = 1;
     } else if (element.target.id === "2" && isFirstClick === true) {
@@ -52,28 +47,27 @@ function firstChoice(element) {
 }
 
 function handleClick(element, choices, storyLines) {
-    // console.log(`TARGET:`, element.target.id)
     const playerPoints = choices[currentCard][parseInt(element.target.id) - 1].points;
     currentCard++;
-    // console.log(`Current Card:`, currentCard)
-    // console.log(element.target)
     messageElement.textContent = storyLines[currentCard].text;
     checkForClimax(element, storyLines)
-    
-    console.log(`PLAYERPOINTS:`, playerPoints)
     tallyPoints(playerPoints);
-    
     if (!choices[currentCard]) {
-        processEndings();
-    } else {
-        choices[currentCard].forEach((choice, index) => {
-            choiceElements[index].textContent = choice.text
-            if (choice.instantDeath === true) {
-                choiceElements[index].dataset.playerDeath = true;
-            }
-        })
-    }
-}
+        if (!playerDeath) {
+            processEndings();
+        }
+        return;
+    }    
+    choices[currentCard].forEach((choice, index) => {
+        choiceElements[index].textContent = choice.text
+        if (choice.instantDeath === true) {
+            choiceElements[index].dataset.playerDeath = "true";
+        } else {
+            delete choiceElements[index].dataset.playerDeath;
+        }
+    })
+};
+
 
 function checkForClimax(element, storyLines) {
     if (element.target.dataset.playerDeath === "true") {
@@ -82,28 +76,24 @@ function checkForClimax(element, storyLines) {
     if (currentCard > 3 && playerDeath === true) {
         choiceElements.forEach(div => div.remove());
         messageElement.textContent = storyLines[4].text;
-        endButton.remove();
         resetYourMission();
         return; 
     } else if (currentCard > 3 && element.target.id === "2") {
         choiceElements.forEach(div => div.remove());
         messageElement.textContent = storyLines[5].text;
-        console.log("second ending")
     } else if (currentCard > 3 && element.target.id === "3") {
         choiceElements.forEach(div => div.remove());
         messageElement.textContent = storyLines[6].text;
-        console.log("third ending")
     }
 }
 
 function tallyPoints(playerPoints) {
     const luckyPoints = Math.floor(Math.random() * (25 - 0 + 1))
     playerScore = luckyPoints + playerPoints + playerScore;
-    console.log(`luckyPoints:`, luckyPoints)
-    console.log(`playerScore:`, playerScore)
 }
 
 function processEndings() {
+    if (playerDeath === true) return;
     const endButton = document.createElement('button')
     endButton.className = 'finishAdventure';
     endButton.textContent = "Finish Your Mission";
@@ -124,7 +114,6 @@ function processEndings() {
             resetYourMission();
         }
     })
-    
 }
 
 function processFinalScore(ending) {
@@ -143,34 +132,29 @@ function resetYourMission() {
     resetButton.className = 'resetMission';
     resetButton.textContent = "Reset Mission"
     resetContainer.appendChild(resetButton)
+    
     resetButton.addEventListener('click', () => {
-        console.log("reset")
+        const existingEndButton = document.querySelector('.finishAdventure')
+        if (existingEndButton) {
+            existingEndButton.remove();
+        }
         initialize();
         currentBranch = undefined;
         choiceElements = freshChoices;
-        
         choiceElements.forEach((el) => {
-            document.querySelector(".choices").appendChild(el)
+            el.removeAttribute('data-player-death');
+            document.querySelector(".choices").appendChild(el);
         })
         resetContainer.removeChild(resetButton)
-        console.log({choiceElements, playerScore, currentCard, playerDeath, isFirstClick})
         reRender();
     })
 }
 
-// function render() {
-//     const startButton = document.getElementById('startButton');
-//     const gameContainer = document.getElementById('gameContainer');
-//     const adventureContainer = document.getElementById('adventureContainer');
-// }
-
 function deploy() {
     document.getElementById('gameContainer').style.display = 'none';
     document.getElementById('adventureContainer').style.display = 'flex';
-    // console.log({aggroChoices, choice: aggroChoices[currentCard]})
     messageElement.textContent = aggroStoryLines[currentCard].text;
     aggroChoices[currentCard].forEach((choice, index) => {
-        // console.log({choice, index})
         choiceElements[index].textContent = choice.text
         })
     
@@ -178,7 +162,6 @@ function deploy() {
 function reRender() {
     document.getElementById('gameContainer').style.display = 'block';
     document.getElementById('adventureContainer').style.display = 'none';
-    console.log({aggroChoices, choice: aggroChoices[currentCard]})
     messageElement.textContent = aggroStoryLines[currentCard].text;
     aggroChoices[currentCard].forEach((choice, index) => {
         choiceElements[index].textContent = choice.text
@@ -196,11 +179,4 @@ document.getElementById('startButton').addEventListener('click', () => {
     deploy();
 })
 
-
-//     const messageElement
-//     aggressiveStoryLines.forEach(story => {
-//         if (branch === 1 && card === 1) {
-//             messageElement.textContent = story.text;
-//         }      
-//     })
     
